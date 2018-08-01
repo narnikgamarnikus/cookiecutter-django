@@ -79,3 +79,17 @@ services:
     command: /start-flower
 
   {%- endif %}
+
+  nuxt:
+    build:
+      context: .
+      dockerfile: ./compose/production/nuxt/Dockerfile
+    command: npm run dev
+    volumes:
+      - .:/app
+      - /app/node_modules
+    ports:
+      - "3000:3000"
+    restart: always
+    env_file:
+      - ./.envs/.local/.nuxt
